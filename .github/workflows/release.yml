@@ -24,3 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create "$GITHUB_REF_NAME" "cmake-${GITHUB_REF_NAME}.zip" --title "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY"
+      - name: Update manifest
+        env:
+          GH_TOKEN: ${{ secrets.MANIFEST_DISPATCH_TOKEN }}
+        run: gh api repos/ps2build/manifest/dispatches -f event_type=component-released
